@@ -56,7 +56,8 @@ Feature: User Registration
     And an error message "Sorry an unexpected error has occured. Please try again." is displayed
 
   Scenario: Passwords do not match
-    When the user enters "John" in the First Name field
+    When the user enters "Petar" in the First Name field
+    And the user enters "Tsolov" in the Surname field
     And the user enters all other valid registration details
     And the user enters "Passw0rd!" as the password
     And the user re-types "Passw0rd123!" in the Re-type Password field
