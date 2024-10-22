@@ -19,6 +19,7 @@ public class RegistrationForm {
     WebDriver driver;
     WebDriverWait wait;
 
+
     @BeforeMethod
     public void setUp(){
         ChromeOptions options = new ChromeOptions();
@@ -32,20 +33,31 @@ public class RegistrationForm {
         driver.get("https://moneygaming.qa.gameaccount.com");
         WebElement joinNowButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".newUser.green")));
         joinNowButton.click();
-        driver.findElement(By.name("map(title)")).click();
-        driver.findElement(By.xpath("//*[@id=\"title\"]/option[2]")).click();
-        driver.findElement(By.name("map(firstName)")).sendKeys("Petar");
-        driver.findElement(By.name("map(lastName)")).sendKeys("Tsolov");
+
+        WebElement titleDropdown = driver.findElement(By.name("map(title)"));
+        WebElement mrTitle = driver.findElement(By.xpath("//*[@id=\"title\"]/option[2]"));
+        WebElement firstName = driver.findElement(By.name("map(firstName)"));
+        WebElement lastName = driver.findElement(By.name("map(lastName)"));
         WebElement terms = driver.findElement(By.name("map(terms)"));
+        WebElement submitForm = driver.findElement(By.id("form"));
+
+
+        titleDropdown.click();
+        mrTitle.click();
+        firstName.sendKeys("Petar");
+        lastName.sendKeys("Tsolov");
+
         if (!terms.isSelected()){
             terms.click();
         }
-        driver.findElement(By.id("form")).click();
+
+        submitForm.click();
+
         Assert.assertTrue(driver.findElement(By.xpath("//*[@id=\"signupForm\"]/fieldset[1]/label[8]")).isDisplayed());
     }
 
-//    @AfterMethod
-//    public void closeBrowser(){
-//        driver.close();
-//    }
+    @AfterMethod
+    public void closeBrowser(){
+        driver.close();
+    }
 }
